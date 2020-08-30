@@ -1,0 +1,79 @@
+<%- include("./partials/header") %>
+<main class="mt-4 mb-4">
+    <%- include("./partials/modals") %>
+    <div class="container">
+        <div class="row btn-section">
+            <div class="col-4 text-center">
+                <h3>支出</h3>
+                <img class="image" data-type="cost" src="/icons/expence.svg" alt="">
+            </div>
+            <div class="col-4 text-center">
+                <h3>庫存</h3>
+                <img class="image btn-section-select" data-type="all" src="/icons/bag.svg" alt="">
+            </div>
+            <div class="col-4 text-center">
+                <h3>收入</h3>
+                <img class="image" data-type="income" src="/icons/income.svg" alt="">
+            </div>
+        </div>
+        <hr class="text-dark">
+        <div class="row">
+            <div class="col content">
+                <div class="form-inline">
+                    <input type="date" class="form-control mr-2 date-filter">
+                    <select class="form-control mr-2 category-filter">
+                        <option value="" selected disabled>請選擇</option>
+                        <option value="all">所有類別</option>
+                        <% categories.forEach(category=>{ %> 
+                            <option value="<%= category._id %>"><%= category.name %></option>
+                        <% }) %>
+                    </select>
+                    <div class="ml-1 p-2 sync">
+                        <i class="fas fa-sync fa-lg"></i>
+                        <span class="ml-1">重新整理</span>
+                    </div>
+                </div>
+                <h1 class="m-4">金額 $ <span class="money-record"><%= moneyRecord %></span></h1>
+                <div class="card mt-2 container">
+                    <div class="card-body row">
+                        <span class="col-md-2 text-center font-weight-bold h5 m-0">店家</span>
+                        <span class="col-md-2 text-center font-weight-bold h5 m-0">項目</span>
+                        <span class="col-md-2 text-center font-weight-bold h5 m-0">日期</span>
+                        <span class="col-md-2 text-center font-weight-bold h5 m-0">類別</span>
+                        <span class="col-md-2 text-center font-weight-bold h5 m-0">金額</span>
+                        <span class="col-md-2 text-center font-weight-bold h5 m-0">收入 / 支出</span> 
+                    </div>
+                </div>
+                <div class="content-target">
+                    <% if(items.length > 0){ %>
+                        <% items.forEach(content=>{ %> 
+                        <div class="card mt-2 all-data container" data-type="<%= content.type %>" data-toggle="modal" data-target="#editItem_<%= content._id %>">
+                            <div class="card-body row">
+                                <span data-id="<%= content._id %>" style="display: none;"></span>
+                                <span class="col-md-2 text-center" data-shop="<%= content.shop %>"><%= content.shop === "" ? "na" : content.shop %></span>
+                                <span class="col-md-2 text-center" data-title="<%= content.title %>"><%= content.title %></span>
+                                <span class="col-md-2 text-center" data-date="<%= content.date %>"><%= content.date %></span>
+                                <span class="col-md-2 text-center" 
+                                    data-category="<%= content.category %>" 
+                                    data-categoryname="<%= content.categoryName %>">
+                                    <%= content.categoryName === "" ? "na" : content.categoryName %>
+                                </span>
+                                <span class="col-md-2 text-center" data-cost="<%= content.cost %>"><%= content.cost %></span>
+                                <span class="col-md-2 text-center <%= content.type === "cost" ? "text-danger" : "text-primary" %>" 
+                                    data-type="<%= content.type %>" 
+                                    data-typename="<%= content.typeName %>">
+                                    <%= content.typeName %>
+                                </span> 
+                            </div>
+                        </div>
+                        <% }) %>
+                    <% }else{ %>
+                        <h3 class="text-center mt-5">~沒有資料喔~</h3>
+                    <% } %>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<%- include("./partials/footer") %>

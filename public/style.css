@@ -1,0 +1,60 @@
+body {
+  font-family: 'Noto Sans TC', sans-serif; }
+
+.bg-img img {
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  position: fixed;
+  opacity: .4; }
+
+#message {
+  position: fixed;
+  right: 200px;
+  top: 100px;
+  max-width: 500px;
+  z-index: 9999; }
+
+header nav a {
+  letter-spacing: 1px; }
+
+header nav a:hover {
+  color: #add8e6 !important; }
+
+main .btn-section img {
+  width: 35%;
+  cursor: pointer;
+  border: 3px solid gold;
+  border-radius: 20px;
+  padding: 10px 10px;
+  transition: all .5s; }
+
+main .btn-section .btn-section-select {
+  background-color: gold; }
+
+main .btn-section .image:hover {
+  background-color: gold; }
+
+main .content {
+  margin-top: 5px;
+  height: 50vh; }
+  main .content .sync {
+    cursor: pointer;
+    transition: all .4s;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    user-select: none; }
+  main .content .sync:hover {
+    color: red; }
+  main .content .content-target .all-data {
+    cursor: pointer;
+    transition: all .4s; }
+  main .content .content-target .all-data:hover {
+    background-color: #ced4da; }
+
+.user-page {
+  max-width: 500px;
+  margin: 30px auto;
+  padding: 15px;
+  background-color: #696969;
+  border-radius: 10px; }

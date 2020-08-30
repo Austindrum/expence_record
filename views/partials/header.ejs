@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;900&display=swap">
+    <script src="https://kit.fontawesome.com/519608a1bc.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="/style.css">
+    <title>Expence Record</title>
+</head>
+<body>
+    <div class="bg-img">
+        <img src="https://images.pexels.com/photos/3531895/pexels-photo-3531895.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500" alt="">
+    </div>
+    <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a href="/" class="navbar-brand mb-0 h1">
+                <i class="fas fa-hat-cowboy"></i>
+                <% if(user === undefined){ %> 
+                    神祕記帳簿
+                <% }else{ %>
+                    <% if(user.name === ""){ %>  
+                        Unkown 的神祕記帳簿
+                    <% }else{ %>
+                        <%= `${user.name} 的` %>神祕記帳簿
+                    <% } %>
+                <% } %>
+            </a>
+            <ul class="navbar-nav ml-auto">
+                <% if(isAuthenticated){ %> 
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#newItem">新增項目</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-toggle="modal" data-target="#newCategory">類別</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/logout">登出</a>
+                    </li>
+                <% }else{ %>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/login">登入</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/user/register">註冊</a>
+                    </li>
+                <% } %>
+            </ul>
+        </nav>
+    </header>
+    <%- include("./message") %>

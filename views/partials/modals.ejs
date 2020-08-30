@@ -1,0 +1,146 @@
+<!-- New Item Modal -->
+<div class="modal fade mt-2" id="newItem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">新增項目</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="/item" method="POST">
+                <div class="form-group">
+                    <label for="record-title">名稱</label>
+                    <input name="title" class="form-control" type="text" placeholder="EX. 吃中餐" required>
+                </div>
+                <div class="form-group">
+                    <label for="record-type">收入 / 支出</label>
+                    <select name="type" class="form-control">
+                        <option value="income">收入</option>
+                        <option value="cost">支出</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="record-cost">金額</label>
+                    <input name="cost" class="form-control" type="number" placeholder="EX. 2000" required>
+                </div>
+                <div class="form-group">
+                    <label for="record-shop">商店名稱</label>
+                    <input name="shop" class="form-control" type="text" placeholder="EX. 麥當勞">
+                </div>
+                <div class="form-group">
+                    <label for="record-date">日期</label>
+                    <input name="date" class="form-control" type="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="record-category">類別</label>
+                    <select name="category" class="form-control">
+                        <option selected disabled>請選擇</option>
+                        <% categories.forEach(category=>{ %> 
+                            <option value="<%= category._id %>"><%= category.name %></option>
+                        <% }) %>
+                    </select>
+                </div>
+                <button class="btn btn-primary w-100 mb-2">建立</button>
+                <button class="btn btn-secondary w-100" data-dismiss="modal">取消</button>
+            </form>
+        </div>
+      </div>
+    </div>
+</div>
+<!-- Edit Item Modal -->
+<% items.forEach(item=>{ %>
+<div class="modal fade mt-2"  id="editItem_<%= item._id %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">更新</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form action="/item/<%= item._id %>?_method=PUT" method="POST">
+                <div class="form-group">
+                    <label for="record-title">名稱</label>
+                    <input name="title" value="<%= item.title %>" class="form-control" placeholder="EX. 吃中餐" type="text" required>
+                </div>
+                <div class="form-group">
+                    <label for="record-type">收入 / 支出</label>
+                    <select name="type" class="form-control">
+                            <option value="income" <%= item.type === "income" ? "selected" : ""%>>收入</option>
+                            <option value="cost" <%= item.type === "cost" ? "selected" : ""%>>支出</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="record-cost">金額</label>
+                    <input name="cost" value="<%= item.cost %>" class="form-control" type="number" placeholder="EX. 2000" required>
+                </div>
+                <div class="form-group">
+                    <label for="record-shop">商店名稱</label>
+                    <input name="shop" value="<%= item.shop %>" class="form-control" placeholder="EX. 麥當勞" type="text">
+                </div>
+                <div class="form-group">
+                    <label for="record-date">日期</label>
+                    <input name="date" value="<%= item.date %>" class="form-control" type="date" required>
+                </div>
+                <div class="form-group">
+                    <label for="record-category">類別</label>
+                    <select name="category" class="form-control">
+                        <option selected disabled>請選擇</option>
+                        <% categories.forEach(category=>{ %> 
+                            <option 
+                                value="<%= category._id %>" 
+                                <%= item.category == category._id ? "selected" : ""%>>
+                                <%= category.name %>
+                            </option>
+                        <% }) %>
+                    </select>
+                </div>
+                <button class="btn btn-success w-100 mb-2">更新</bautton>
+            </form>
+            <form action="/item/<%= item._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger w-100 mb-2">刪除</button>
+            </form>
+            <button class="btn btn-secondary w-100" data-dismiss="modal">取消</button>
+        </div>
+      </div>
+    </div>
+</div>
+<% }) %>
+<!-- Categoey Modal -->
+<div class="modal fade mt-2" id="newCategory" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title">所有類別</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body">
+            <% categories.forEach(category=>{ %>
+                <div class="card mt-1">
+                    <div class="card-body d-flex justify-content-between p-3">
+                        <span class="mt-1"><%= category.name %></span>
+                        <form action="/category/<%= category._id %>?_method=DELETE" method="POST">
+                            <button type="submit" class="close text-danger">&times;</button>
+                        </form>
+                    </div>
+                </div>
+            <% }) %>
+        </div>
+        <div class="modal-body">
+            <h5 class="modal-title">新增類別</h5>
+            <form class="mt-2" action="/category" method="POST">
+                <div class="form-group">
+                    <input class="form-control" name="title" type="text" id="category-title" placeholder="EX. 用餐" required>
+                </div>
+                <button class="btn btn-primary w-100 mb-2" id="new-category">建立</button>
+                <button class="btn btn-secondary w-100" data-dismiss="modal">取消</button>
+            </form>
+        </div>
+    </div>
+  </div>
+</div>
