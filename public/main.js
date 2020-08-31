@@ -77,8 +77,13 @@ if(btnSection !== null &&
     function resetSelecter(){
         categoryFilter.value = "";
         dateFilter.value = "";
+        money = 0;
+        selectTarget.forEach(data=> data.type === "cost" ? money -= parseInt(data.cost) : money += parseInt(data.cost) );
+        console.log(money);
+        moneyRecord[0].innerHTML = money;
         showBlock.insertAdjacentHTML('afterbegin', renderContent(selectTarget));
     }
+    //calc money
     function calcMoney(e){
         if(e.type === "cost"){
             money -= parseInt(e.cost);
@@ -90,8 +95,6 @@ if(btnSection !== null &&
         resetSelecter();
     })
     //ALL EVENT
-    //reset template
-
     //type button click
     btnSection.addEventListener("click", (e)=>{
         if(e.target.nodeName === "IMG"){

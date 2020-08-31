@@ -90,8 +90,7 @@
                     <select name="category" class="form-control">
                         <option selected disabled>請選擇</option>
                         <% categories.forEach(category=>{ %> 
-                            <option 
-                                value="<%= category._id %>" 
+                            <option value="<%= category._id %>" 
                                 <%= item.category == category._id ? "selected" : ""%>>
                                 <%= category.name %>
                             </option>
