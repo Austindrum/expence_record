@@ -25,6 +25,7 @@ router.put("/:id", (req, res)=>{
     return Item.findOne({ _id, userId })
             .then((item)=>{
                 Object.assign(item, { title, type, cost, shop, date, category });
+                item.save();
             })
             .then(()=>{
                 req.flash("success_msg", "更新成功");
