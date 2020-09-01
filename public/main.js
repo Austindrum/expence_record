@@ -79,7 +79,6 @@ if(btnSection !== null &&
         dateFilter.value = "";
         money = 0;
         selectTarget.forEach(data=> data.type === "cost" ? money -= parseInt(data.cost) : money += parseInt(data.cost) );
-        console.log(money);
         moneyRecord[0].innerHTML = money;
         showBlock.insertAdjacentHTML('afterbegin', renderContent(selectTarget));
     }

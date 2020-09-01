@@ -10,17 +10,16 @@ router.get("/*", (req, res)=>{
 router.post("/", (req, res)=>{
     let userId = req.user._id;
     return Category.find({ userId }).then((categories)=>{
-                let userId = req.user._id;
-                if(!categories.some(category=> category.name === req.body.title)){
-                    Category.create({ name: req.body.title, userId }).then(()=> {
-                        req.flash("success_msg", "類別建立成功")
-                        return res.redirect("/")
-                    });      
-                }else{
-                    req.flash("error_msg", "此類別已存在")
-                    return res.redirect("/");
-                }
-            })
+        if(!categories.some(category=> category.name === req.body.title)){
+            Category.create({ name: req.body.title, userId }).then(()=> {
+                req.flash("success_msg", "類別建立成功")
+                return res.redirect("/")
+            });      
+        }else{
+            req.flash("error_msg", "此類別已存在")
+            return res.redirect("/");
+        }
+    })
 })
 router.delete("/:id", (req, res)=>{
     let _id = req.params.id;

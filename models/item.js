@@ -18,11 +18,14 @@ const itemSchema = new Schema({
         type: String,
     },
     date: {
-        type: String,
+        type: Date,
         required: true
     },
     category: {
-        type: String,
+        type: Schema.Types.ObjectId,
+        ref: 'Category',
+        index: true,
+        required: true
     },
     userId: {
         type: Schema.Types.ObjectId,

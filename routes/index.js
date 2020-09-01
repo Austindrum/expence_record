@@ -28,9 +28,19 @@ router.get("/", authenticator, (req, res)=>{
             item.forEach((data)=>{
                 let typeName = "";
                 let categoryName = "";
-                data.type === "cost" ? moneyRecord -= data.cost : moneyRecord += data.cost;
-                data.type === "cost" ? typeName = "支出" : typeName = "收入";
-                categories.forEach(category => category._id == data.category ? categoryName = category.name : "" );
+                let dayFormat = {
+                    year: data.date.getFullYear(),
+                    month: data.date.getMonth() + 1 < 10 ? `0${data.date.getMonth()+1}` : data.date.getMonth()+1,
+                    date: data.date.getDate() < 10 ? `0${data.date.getDate()}` : data.date.getDate(),
+                }
+                if(data.type === "cost"){
+                    moneyRecord -= data.cost;
+                    typeName = "支出";
+                }else{
+                    moneyRecord += data.cost;
+                    typeName = "收入";
+                }
+                categories.forEach(category => JSON.stringify(category._id) === JSON.stringify(data.category) ? categoryName = category.name : "" );
                 items.push({
                     _id: data._id,
                     title: data.title,
@@ -38,7 +48,7 @@ router.get("/", authenticator, (req, res)=>{
                     typeName,
                     cost: data.cost,
                     shop: data.shop,
-                    date: data.date,
+                    date: `${dayFormat.year}-${dayFormat.month}-${dayFormat.date}`,
                     category: data.category,
                     categoryName,
                     userId
